@@ -1,0 +1,149 @@
+main.main-detalles,
+.main-cart {
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .contenedor_producto {
+        display: flex;
+        flex-direction: column;
+        height: 80%;
+        width: 60%;
+        box-shadow: 30px 30px 30px 30px rgba(0, 0, 0, 0.438);
+        border-radius: 20px;
+
+        .contenedor_info {
+            width: 100%;
+            height: 85%;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        .contenedor_detalles {
+            display: flex;
+            height: 100%;
+            width: 40%;
+
+            .imagen_produ2 {
+                height: auto;
+                width: 100%;
+                border-radius: 15px;
+            }
+        }
+
+    }
+
+    .detalles_producto {
+        height: 60%;
+        width: 40%;
+        display: flex;
+        flex-direction: row;
+
+        .contenedor_detalles {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .imagen_produ {
+                height: 100%;
+                width: 100%;
+            }
+        }
+
+        h3 {
+            text-align: center;
+        }
+    }
+}
+
+
+.tarjeta-cart {
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 140px;
+    width: 50%;
+    margin: auto;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.438);
+    border-radius: 20px;
+    background-color: var(--rosa-claro);
+}
+
+
+<main class="main-detalles ">
+<section class="contenedor_producto">
+    <div class="contenedor_info flex">
+        <div class="contenedor_detalles">
+            <img class="imagen_produ2" src="img/product1.png" alt="">
+        </div>
+        <div class="detalles_precio">
+            <div class="precio_detalles">
+                <div class="titulo-detalles">
+                    <h2 class="letra-rosa">SHAMPOO</h2>
+                    <h3 class="letra-negra p-5-izq">Cabello fuerte</h3>
+                </div>
+                <div class="puntuacion">
+
+                    <div class="price letra-gris">
+                        $21.24
+                    </div>
+                    <div class="icon-absolute-lado">
+                        <h6>(4.2)</h6>
+                        <i class="fa-solid fa-star precio"></i>
+                        <i class="fa-solid fa-star precio"></i>
+                        <i class="fa-solid fa-star precio"></i>
+                        <i class="fa-solid fa-star precio"></i>
+                        <i class="fa-solid fa-star precio"></i>
+                    </div>
+                </div>
+                <div class="compra">
+                    <h3 class="izq letra-negra p-10">Descripción</h3>
+                    <p class="letra-gris p-10">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum accusantium expedita
+                        labore natus quas, est
+                        explicabo veniam, quis molestias minima non vel consequuntur, ut fuga! Sint suscipit
+                        accusantium deleniti
+                        earum!
+                    </p>
+                    <p class="izq flex">
+                        Para más información
+                        <span class="material-symbols-outlined iconos izq letra-rosa">arrow_forward</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="contenedor_compra">
+        <div class="detalles_producto">
+            <div class="contenedor_detalles">
+                <img class="imagen_produ" src="img/frutilla.jfif" alt="">
+                <h3 class="letra-gris">Frutilla</h3>
+            </div>
+            <div class="contenedor_detalles">
+                <img class="imagen_produ" src="img/kiwi.jfif" alt="">
+                <h3 class="letra-gris">Kiwi</h3>
+            </div>
+            <div class="contenedor_detalles">
+                <img class="imagen_produ" src="img/palta.jfif" alt="">
+                <h3 class="letra-gris">Palta</h3>
+            </div>
+        </div>
+        <div class="base_detalles">
+            <div class="btn_contador">
+                <button id="restar" class="iconos botonesCarrito" onclick="restar()">remove</button>
+                <p class="botonesCarrito" id="cantidad">1</p>
+                <button id="sumar" class="iconos botonesCarrito" onclick="sumar()">add</button>
+            </div>
+            <div class="separar_btn">
+                <div class="btn_container">
+                    <button class="btn_compra letra-blanca">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</main>
