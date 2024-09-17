@@ -1,3 +1,8 @@
+const carritoGuardado = localStorage.getItem('compra');
+var id_local = localStorage.getItem("id_local");
+const compra = JSON.parse(carritoGuardado);
+console.log(compra);
+
 document.addEventListener('DOMContentLoaded', () => {
     fetch('js/productos.json')
         .then(response => response.json())
@@ -25,19 +30,20 @@ function generateUserHTML(usuario) {
   
     var listaCompras="";
         
-    usuario.ultima_compra.productos.forEach(producto => {
-        listaCompras += `
-            <div class="contenedor_detalles">
-                <img class="imagen_produ" src="${producto.imagen_producto}" alt="${producto.nombre}">
-                <div class="contenedor-cart">
-                    <div class="title-cart p-10">${producto.nombre}</div>
-                    <div class="subtitle-cart p-10">Cantidad: ${usuario.ultima_compra.unidades}</div>
-                    <div class="price-cart p-10">Precio final: $${usuario.ultima_compra.precio_final}</div>
-                </div>
-            </div>
-        `;
+    compra.forEach((producto, index) => {
+        if (index !== compra.length - 1) {
+            listaCompras += 
+                `<div class="contenedor_detalles">
+                    <img class="imagen_produ" src="${producto.imagen}" alt="${producto.producto}">
+                    <div class="contenedor-cart">
+                        <div class="title-cart p-10">${producto.producto}</div>
+                        <div class="subtitle-cart p-10">Cantidad: ${producto.cantidad}</div>
+                        <div class="price-cart p-10">Precio unitario: $${producto.precio}</div>
+                        <div class="price-cart p-10">Subtotal: $${producto.subtotalCarrito}</div>
+                    </div>
+                </div>`;
+        }
     });
-
 
 
     return `

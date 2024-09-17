@@ -138,3 +138,35 @@ function generateProductHTML(producto) {
 
     `;
 }
+
+
+
+function finalizarCompra() {
+    fetch('js/productos.json')
+    .then(response => response.json())
+    .then(data => {
+        const usuariosGuardados = localStorage.getItem('usuarios');
+        const usuarios = JSON.parse(usuariosGuardados);
+        const usuario = 1;
+
+
+    const ultimaCompra = {
+        fecha: new Date().toISOString().split('T')[0], 
+        unidades: carrito.reduce((total, producto) => total + producto.cantidad, 0), 
+        productos: carrito.map(producto => ({
+            nombre: producto.producto,
+            imagen_producto: producto.imagen
+        })), 
+        precio_final: total 
+    };
+
+    usuario.ultima_compra = ultimaCompra;
+
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+    localStorage.setItem('ultimaCompra', JSON.stringify(carrito)); 
+    console.log(ultimaCompra); 
+    window.location.href = `Perfil.html?`;
+    vaciarCarrito();
+
+    });
+}

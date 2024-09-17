@@ -7,11 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('js/productos.json')
         .then(response => response.json())
         .then(data => {
-            const container = document.querySelector(".productos");
             const seccion = data.productos_y_usuarios.seccion_cosmeticos_y_belleza;
-            
             const usuarios = data.productos_y_usuarios.usuarios; 
             let usuarioEncontrado = null;
+            mostrarProductos('all');  
 
             usuarioEncontrado = usuarios.find(usuario => usuario.id == 1);
 
@@ -22,17 +21,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Usuario no encontrado');
             }
 
+            function mostrarProductos(categoria){
+                const container = document.querySelector(".productos");
+                container.innerHTML = ''; 
+                
 
-
-            Object.keys(seccion).forEach(categoria => {
-                const productos = seccion[categoria];
-                productos.forEach(producto => {
-                    container.innerHTML += generateProductHTML(producto);
-
+                Object.keys(seccion).forEach(tipo_produ => {
+                    if (categoria === 'all' || tipo_produ === categoria) {
+                        const productos = seccion[tipo_produ];
+                        productos.forEach(producto => {
+                            
+                            container.innerHTML += generateProductHTML(producto);
+                        });
+                    }
                 });
-            });
-
-  
+            }
             const productosLinks = document.querySelectorAll(".contenedor_producto");
             productosLinks.forEach(link => {
                 link.addEventListener('click', (event) => {
@@ -40,10 +43,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     guardar_id(productId);
                 });
             });
+            const categoriaLinks = document.querySelectorAll('li a');
+            categoriaLinks.forEach(categoriaLink => {
+                categoriaLink.addEventListener('click', (event) => {
+                    event.preventDefault(); 
+                    categoriaLinks.forEach(link => link.classList.remove('active'));
+                    categoriaLink.classList.add('active');
+                    const categoria = categoriaLink.getAttribute('data-category');
+                    mostrarProductos(categoria);  
+                    
+            });
+
         })
-        .catch(error => {
-            console.error('Error cargando el JSON:', error);
-        });
+
+    });
 });
 
 function generateProductHTML(producto) {
@@ -70,7 +83,7 @@ function UsuarioHTML(usuario) {
     return `
 
         <div class="user_foto">
-            <a href="Cart.html?id=${usuario.id}">
+            <a href="Perfil.html?id=${usuario.id}">
                 <img class="imagen_user" src=${usuario.foto_perfil} alt="">
             </a>
         </div>

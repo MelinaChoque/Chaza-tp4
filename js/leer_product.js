@@ -1,8 +1,7 @@
-
-
 var id_local = localStorage.getItem("id_local");
+console.log(id_local)
 function generateProductHTML(producto) {
-    // Generación de estrellas de puntuación
+
     let estrellas = '';
     for (let x = 1; x <= 5; x++) {
         if (producto.clasificacion >= x) {
@@ -216,6 +215,7 @@ function Suma_resta(producto) {
     
     btn_restar.addEventListener('click', restar);
     btn_sumar.addEventListener('click', sumar);
+    
 }
 
 

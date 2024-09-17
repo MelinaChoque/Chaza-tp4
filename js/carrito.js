@@ -6,6 +6,7 @@ console.log(carrito);
 
 const contenedorCarrito = document.querySelector('.main-cart');
 var total = 0;
+if(carrito && carrito.length > 0){
 carrito.forEach((producto, pos) => {
     const subtotal = producto.precio * producto.cantidad;
     total += subtotal;
@@ -14,7 +15,7 @@ carrito.forEach((producto, pos) => {
         <section class="contenido-cart">
             <div class="tarjeta-cart">
                 <div class="contenedor_detalles">
-                    <img class="${producto.imagen}" src="img/frutilla.jfif" alt="">
+                    <img class="imagen_produ" src="${producto.imagen}" alt="">
                 </div>
                 <div class="contenedor-cart">
                     <div class="title-cart p-10">${producto.producto}
@@ -38,6 +39,7 @@ const totalHTML = `
         <div class="base_detalles">
             <p class="botonesCarrito letra-blanca" id="total">${total}</p>
             <div class="btn_container">
+                
                 <button class="btn_compra2 btn_compra letra-blanca">Finalizar compra</button>
 
                 
@@ -47,6 +49,14 @@ const totalHTML = `
         </div>
 `;
 contenedor.innerHTML += totalHTML;
+actualizarCarrito();
+}else{
+    const contenedorFooter = document.querySelector('.footer-cart');
+    contenedorCarrito.innerHTML = '<h4>El carrito está vacío.</h4>';
+    contenedorFooter.innerHTML = ''; 
+    contenedorFooter.style.backgroundColor = 'rgb(207, 204, 204)'; 
+
+}
 
 function actualizarCarrito() {
     localStorage.setItem('carrito', JSON.stringify(carrito));
@@ -64,13 +74,16 @@ function vaciarCarrito() {
     const contenedorFooter = document.querySelector('.footer-cart');
 
     if (contenedorCarrito) {
-        contenedorCarrito.innerHTML = '<p>El carrito está vacío.</p>';
+        contenedorCarrito.innerHTML = '<h4>El carrito está vacío.</h4>';
+        
     }
 
     if (contenedorFooter) {
         contenedorFooter.innerHTML = ''; 
-        contenedorFooter.style.backgroundColor = 'rgb(207, 204, 204)';
+        contenedorFooter.style.backgroundColor = 'rgb(207, 204, 204)'; 
     }
+
+    
 
 }
 
@@ -101,20 +114,14 @@ function sumar(pos) {
 }
 
 
-if (carrito.length === 0) {
-    contenedorCarrito.innerHTML = '<p>El carrito está vacío.</p>';
-    contenedorFooter.innerHTML = ''; 
-} else {
-    actualizarCarrito();
-}
+
+    
+
 
 function finalizarCompra() {
-    const usuariosGuardados = localStorage.getItem('usuarios');
-    const usuarios = JSON.parse(usuariosGuardados);
-    const usuario = 1;
 
-
-    const ultimaCompra = {
+    var ultimaCompra = JSON.parse(localStorage.getItem('carrito')) || [];
+    ultimaCompra.push({
         fecha: new Date().toISOString().split('T')[0], 
         unidades: carrito.reduce((total, producto) => total + producto.cantidad, 0), 
         productos: carrito.map(producto => ({
@@ -122,15 +129,14 @@ function finalizarCompra() {
             imagen_producto: producto.imagen
         })), 
         precio_final: total 
-    };
+    });
 
-    usuario.ultima_compra = ultimaCompra;
-
-    localStorage.setItem('usuarios', JSON.stringify(usuarios));
-
+    localStorage.setItem('compra', JSON.stringify(ultimaCompra));
+    window.location.href = "Perfil.html";
     vaciarCarrito();
 
-    alert('Compra finalizada con éxito.');
 }
+
+
 
 document.querySelector('.btn_compra2').addEventListener('click', finalizarCompra);
